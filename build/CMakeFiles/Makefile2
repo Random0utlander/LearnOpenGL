@@ -109,12 +109,12 @@ clean: CMakeFiles/ContinuousSubmit.dir/clean
 CMakeFiles/my_first_simulation.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_first_simulation.dir/build.make CMakeFiles/my_first_simulation.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_first_simulation.dir/build.make CMakeFiles/my_first_simulation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=1,2,3,4 "Built target my_first_simulation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target my_first_simulation"
 .PHONY : CMakeFiles/my_first_simulation.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/my_first_simulation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/random0utlander/LearnOpenGL/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/random0utlander/LearnOpenGL/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_first_simulation.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/random0utlander/LearnOpenGL/build/CMakeFiles 0
 .PHONY : CMakeFiles/my_first_simulation.dir/rule

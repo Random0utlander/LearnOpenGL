@@ -9,7 +9,14 @@ add_executable(my_first_simulation
     src/main.cpp
     src/glad.c
     src/glad.h
-    src/triangle_mesh.cpp
+    src/shaderClass.h
+    src/shaderClass.cpp
+    src/VAO.h
+    src/VAO.cpp
+    src/VBO.h
+    src/VBO.cpp
+    src/EBO.cpp
+    src/EBO.h
 )
 
 include_directories(my_first_simulation PRIVATE glm)

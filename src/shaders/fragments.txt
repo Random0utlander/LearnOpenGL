@@ -1,9 +1,14 @@
 #version 330 core
 
-in vec3 fragmentColor;
+// Outputs colors in RGBA
+out vec4 FragColor;
 
-out vec4 screenColor;
 
-void main(){
-    screenColor = vec4(fragmentColor, 1.0);
+// Inputs the color from the Vertex Shader
+in vec3 color;
+
+
+void main()
+{
+	FragColor = vec4(color, 1.0f);
 }

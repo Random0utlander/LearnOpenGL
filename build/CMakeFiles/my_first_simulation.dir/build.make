@@ -97,37 +97,85 @@ CMakeFiles/my_first_simulation.dir/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/my_first_simulation.dir/src/glad.c.s"
 	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/random0utlander/LearnOpenGL/src/glad.c -o CMakeFiles/my_first_simulation.dir/src/glad.c.s
 
-CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o: CMakeFiles/my_first_simulation.dir/flags.make
-CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o: ../src/triangle_mesh.cpp
-CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o: CMakeFiles/my_first_simulation.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o -MF CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o.d -o CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o -c /home/random0utlander/LearnOpenGL/src/triangle_mesh.cpp
+CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o: CMakeFiles/my_first_simulation.dir/flags.make
+CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o: ../src/shaderClass.cpp
+CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o: CMakeFiles/my_first_simulation.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o -MF CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o.d -o CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o -c /home/random0utlander/LearnOpenGL/src/shaderClass.cpp
 
-CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/random0utlander/LearnOpenGL/src/triangle_mesh.cpp > CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.i
+CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/random0utlander/LearnOpenGL/src/shaderClass.cpp > CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.i
 
-CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/random0utlander/LearnOpenGL/src/triangle_mesh.cpp -o CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.s
+CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/random0utlander/LearnOpenGL/src/shaderClass.cpp -o CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.s
+
+CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o: CMakeFiles/my_first_simulation.dir/flags.make
+CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o: ../src/VAO.cpp
+CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o: CMakeFiles/my_first_simulation.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o -MF CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o.d -o CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o -c /home/random0utlander/LearnOpenGL/src/VAO.cpp
+
+CMakeFiles/my_first_simulation.dir/src/VAO.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_first_simulation.dir/src/VAO.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/random0utlander/LearnOpenGL/src/VAO.cpp > CMakeFiles/my_first_simulation.dir/src/VAO.cpp.i
+
+CMakeFiles/my_first_simulation.dir/src/VAO.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_first_simulation.dir/src/VAO.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/random0utlander/LearnOpenGL/src/VAO.cpp -o CMakeFiles/my_first_simulation.dir/src/VAO.cpp.s
+
+CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o: CMakeFiles/my_first_simulation.dir/flags.make
+CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o: ../src/VBO.cpp
+CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o: CMakeFiles/my_first_simulation.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o -MF CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o.d -o CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o -c /home/random0utlander/LearnOpenGL/src/VBO.cpp
+
+CMakeFiles/my_first_simulation.dir/src/VBO.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_first_simulation.dir/src/VBO.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/random0utlander/LearnOpenGL/src/VBO.cpp > CMakeFiles/my_first_simulation.dir/src/VBO.cpp.i
+
+CMakeFiles/my_first_simulation.dir/src/VBO.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_first_simulation.dir/src/VBO.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/random0utlander/LearnOpenGL/src/VBO.cpp -o CMakeFiles/my_first_simulation.dir/src/VBO.cpp.s
+
+CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o: CMakeFiles/my_first_simulation.dir/flags.make
+CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o: ../src/EBO.cpp
+CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o: CMakeFiles/my_first_simulation.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o -MF CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o.d -o CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o -c /home/random0utlander/LearnOpenGL/src/EBO.cpp
+
+CMakeFiles/my_first_simulation.dir/src/EBO.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/my_first_simulation.dir/src/EBO.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/random0utlander/LearnOpenGL/src/EBO.cpp > CMakeFiles/my_first_simulation.dir/src/EBO.cpp.i
+
+CMakeFiles/my_first_simulation.dir/src/EBO.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/my_first_simulation.dir/src/EBO.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/random0utlander/LearnOpenGL/src/EBO.cpp -o CMakeFiles/my_first_simulation.dir/src/EBO.cpp.s
 
 # Object files for target my_first_simulation
 my_first_simulation_OBJECTS = \
 "CMakeFiles/my_first_simulation.dir/src/main.cpp.o" \
 "CMakeFiles/my_first_simulation.dir/src/glad.c.o" \
-"CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o"
+"CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o" \
+"CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o" \
+"CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o" \
+"CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o"
 
 # External object files for target my_first_simulation
 my_first_simulation_EXTERNAL_OBJECTS =
 
 my_first_simulation: CMakeFiles/my_first_simulation.dir/src/main.cpp.o
 my_first_simulation: CMakeFiles/my_first_simulation.dir/src/glad.c.o
-my_first_simulation: CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o
+my_first_simulation: CMakeFiles/my_first_simulation.dir/src/shaderClass.cpp.o
+my_first_simulation: CMakeFiles/my_first_simulation.dir/src/VAO.cpp.o
+my_first_simulation: CMakeFiles/my_first_simulation.dir/src/VBO.cpp.o
+my_first_simulation: CMakeFiles/my_first_simulation.dir/src/EBO.cpp.o
 my_first_simulation: CMakeFiles/my_first_simulation.dir/build.make
 my_first_simulation: /usr/lib/x86_64-linux-gnu/libGLX.so
 my_first_simulation: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 my_first_simulation: CMakeFiles/my_first_simulation.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable my_first_simulation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/random0utlander/LearnOpenGL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable my_first_simulation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/my_first_simulation.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

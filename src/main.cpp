@@ -1,145 +1,117 @@
 #include "config.h"
-#include "triangle_mesh.h"
 
-using namespace std;
 
-//Prototypes
-unsigned int make_shader(const string& vertex_filepath, const string& fragment_filepath);
-unsigned int make_module(const string& filepath, unsigned int module_type);
-//
+// Vertices coordinates
+GLfloat vertices[] =
+{ //               COORDINATES                  /     COLORS           //
+	-0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower left corner
+	 0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower right corner
+	 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,     1.0f, 0.6f,  0.32f, // Upper corner
+	-0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner left
+	 0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner right
+	 0.0f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f  // Inner down
+};
 
-int main(){
+// Indices for vertices order
+GLuint indices[] =
+{
+	0, 3, 5, // Lower left triangle
+	3, 2, 4, // Lower right triangle
+	5, 4, 1 // Upper triangle
+};
 
-    GLFWwindow* window;
 
-    if(!glfwInit()){
-        return -1;
-    }
-/*
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-*/                                                            
-    window = glfwCreateWindow(640, 480, "Window!", NULL, NULL);
-    glfwMakeContextCurrent(window);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        cout << "Failed to initialize GLAD" << endl;
-        return -1;
-    }
+int main()
+{
+	// Initialize GLFW
+	glfwInit();
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	// Tell GLFW what version of OpenGL we are using 
+	// In this case we are using OpenGL 3.3
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	// Tell GLFW we are using the CORE profile
+	// So that means we only have the modern functions
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    int w,h; //get widht and height of window to double check
-    glfwGetFramebufferSize(window, &w, &h);
-    glViewport(0,0,w,h);
+	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
+	GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
+	// Error check if the window fails to create
+	if (window == NULL)
+	{
+		std::cout << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return -1;
+	}
+	// Introduce the window into the current context
+	glfwMakeContextCurrent(window);
 
-    TriangleMesh* triangle = new TriangleMesh();
+	//Load GLAD so it configures OpenGL
+	gladLoadGL();
+	// Specify the viewport of OpenGL in the Window
+	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
+	glViewport(0, 0, 800, 800);
 
-    unsigned int shader =make_shader(
-        "../src/shaders/vertex.txt",
-        "../src/shaders/fragments.txt"
-    );
-    
 
-    while (!glfwWindowShouldClose(window))
-    {
-        glfwPollEvents();
 
-        glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(shader);
-        triangle->draw();
+	// Generates Shader object using shaders defualt.vert and default.frag
+	Shader shaderProgram("../shaders/vertex.txt", "../shaders/fragments.txt");
 
-        glfwSwapBuffers(window);
-    }
-    
-    glDeleteProgram(shader);
-    delete triangle;
-    glfwTerminate();
-    return 0;
+
+
+	// Generates Vertex Array Object and binds it
+	VAO VAO1;
+	VAO1.Bind();
+
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO1(vertices, sizeof(vertices));
+	// Generates Element Buffer Object and links it to indices
+	EBO EBO1(indices, sizeof(indices));
+
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
+
+	// Gets ID of uniform called "scale"
+	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+
+
+	// Main while loop
+	while (!glfwWindowShouldClose(window))
+	{
+		// Specify the color of the background
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		// Clean the back buffer and assign the new color to it
+		glClear(GL_COLOR_BUFFER_BIT);
+		// Tell OpenGL which Shader Program we want to use
+		shaderProgram.Activate();
+		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
+		glUniform1f(uniID, 0.5f);
+		// Bind the VAO so OpenGL knows to use it
+		VAO1.Bind();
+		// Draw primitives, number of indices, datatype of indices, index of indices
+		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		// Swap the back buffer with the front buffer
+		glfwSwapBuffers(window);
+		// Take care of all GLFW events
+		glfwPollEvents();
+	}
+
+
+
+	// Delete all the objects we've created
+	VAO1.Delete();
+	VBO1.Delete();
+	EBO1.Delete();
+	shaderProgram.Delete();
+	// Delete window before ending the program
+	glfwDestroyWindow(window);
+	// Terminate GLFW before ending the program
+	glfwTerminate();
+	return 0;
 }
-
-unsigned int make_shader(const string& vertex_filepath, const string& fragment_filepath){
-    vector<unsigned int> modules;
-    modules.push_back(make_module(vertex_filepath, GL_VERTEX_SHADER));
-    modules.push_back(make_module(fragment_filepath, GL_FRAGMENT_SHADER));
-
-    unsigned int shader = glCreateProgram();
-    for (unsigned int shaderModule : modules)
-    {
-        glAttachShader(shader, shaderModule);
-    }
-    glLinkProgram(shader);
-
-    int success;
-    glGetProgramiv(shader, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        char errorLog[1024];
-        glGetShaderInfoLog(shader,  1024, NULL, errorLog);
-        cout << "Shader Linking Error:\n" << errorLog << endl;
-    }
-
-    for(unsigned int shaderModule : modules)
-    {
-        glDeleteShader(shaderModule);
-    }
-
-    return shader;
-}
-
-unsigned int make_module(const string& filepath, unsigned int module_type){
-    /*
-    ifstream file;
-    stringstream bufferedlines;
-    string line;
-
-    file.open(filepath);
-    while (getline(file, line))
-    {
-        bufferedlines << line << "\n";
-    }
-    string shaderSource = bufferedlines.str();
-    const char* shaderSrc = shaderSource.c_str();
-    bufferedlines.str("");
-    file.close();
-*/
-    std::string shaderCode;
-    std::ifstream ShaderFile;
-    // ensure ifstream objects can throw exceptions:
-    ShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-    try 
-    {
-        // open files
-        ShaderFile.open(filepath);
-        std::stringstream ShaderStream;
-        // read file's buffer contents into streams
-        ShaderStream << ShaderFile.rdbuf();
-        // close file handlers
-        ShaderFile.close();
-        // convert stream into string
-        shaderCode   = ShaderStream.str();
-    }
-    catch(std::ifstream::failure e)
-    {
-        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-    }
-    const char* ShaderCode = shaderCode.c_str();
-
-    unsigned int shaderModule = glCreateShader(module_type);
-    glShaderSource(shaderModule, 1, &ShaderCode, NULL);
-    glCompileShader(shaderModule);
-
-    int success;
-    glGetShaderiv(shaderModule, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        char errorLog[1024];
-        glGetShaderInfoLog(shaderModule,  1024, NULL, errorLog);
-        cout << "Shader Module Compilation Error:\n" << errorLog << endl;
-    }
-
-    return shaderModule;
-} 
