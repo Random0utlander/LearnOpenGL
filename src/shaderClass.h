@@ -8,7 +8,7 @@
 #include<iostream>
 #include<cerrno>
 
-std::string get_file_contents(const char* filename);
+std::string get_file_contents(const std::string& filename);
 
 class Shader
 {
@@ -16,7 +16,7 @@ public:
 	// Reference ID of the Shader Program
 	GLuint ID;
 	// Constructor that build the Shader Program from 2 different shaders
-	Shader(const char* vertexFile, const char* fragmentFile);
+	Shader(const std::string& vertexFile, const std::string& fragmentFile);
 
 	// Activates the Shader Program
 	void Activate();

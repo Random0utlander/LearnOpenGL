@@ -1,7 +1,7 @@
 #include"shaderClass.h"
 
 // Reads a text file and outputs a string with everything in the text file
-std::string get_file_contents(const char* filename)
+std::string get_file_contents(const std::string& filename)
 {
 /*
 	std::ifstream in(filename, std::ios::binary);
@@ -17,6 +17,7 @@ std::string get_file_contents(const char* filename)
 	}
 	throw(errno);
 */
+/*
     std::ifstream file;
     std::stringstream bufferedLines;
 	std::string line;
@@ -33,10 +34,33 @@ std::string get_file_contents(const char* filename)
     bufferedLines.str("");
 	file.close();
     return out;
+*/
+    std::string shaderCode;
+    std::ifstream ShaderFile;
+    // ensure ifstream objects can throw exceptions:
+    ShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
+    try 
+    {
+        // open files
+        ShaderFile.open(filename);
+        std::stringstream ShaderStream;
+        // read file's buffer contents into streams
+        ShaderStream << ShaderFile.rdbuf();
+        // close file handlers
+        ShaderFile.close();
+        // convert stream into string
+        shaderCode   = ShaderStream.str();
+    }
+    catch(std::ifstream::failure e)
+    {
+        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+    }
+    return shaderCode;
+
 }
 
 // Constructor that build the Shader Program from 2 different shaders
-Shader::Shader(const char* vertexFile, const char* fragmentFile)
+Shader::Shader(const std::string& vertexFile, const std::string& fragmentFile)
 {
 	// Read vertexFile and fragmentFile and store the strings
 	std::string vertexCode = get_file_contents(vertexFile);
