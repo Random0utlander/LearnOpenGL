@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/random0utlander/LearnOpenGL/build",
+  "command": "/usr/bin/g++  -I/home/random0utlander/LearnOpenGL/my_first_simulation -I/home/random0utlander/LearnOpenGL/PRIVATE -I/home/random0utlander/LearnOpenGL/glm -g -o CMakeFiles/my_first_simulation.dir/src/main.cpp.o -c /home/random0utlander/LearnOpenGL/src/main.cpp",
+  "file": "/home/random0utlander/LearnOpenGL/src/main.cpp"
+},
+{
+  "directory": "/home/random0utlander/LearnOpenGL/build",
+  "command": "/usr/bin/gcc  -I/home/random0utlander/LearnOpenGL/my_first_simulation -I/home/random0utlander/LearnOpenGL/PRIVATE -I/home/random0utlander/LearnOpenGL/glm -g -o CMakeFiles/my_first_simulation.dir/src/glad.c.o -c /home/random0utlander/LearnOpenGL/src/glad.c",
+  "file": "/home/random0utlander/LearnOpenGL/src/glad.c"
+},
+{
+  "directory": "/home/random0utlander/LearnOpenGL/build",
+  "command": "/usr/bin/g++  -I/home/random0utlander/LearnOpenGL/my_first_simulation -I/home/random0utlander/LearnOpenGL/PRIVATE -I/home/random0utlander/LearnOpenGL/glm -g -o CMakeFiles/my_first_simulation.dir/src/triangle_mesh.cpp.o -c /home/random0utlander/LearnOpenGL/src/triangle_mesh.cpp",
+  "file": "/home/random0utlander/LearnOpenGL/src/triangle_mesh.cpp"
+}
+]
