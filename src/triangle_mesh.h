@@ -3,9 +3,9 @@
 class TriangleMesh {
 public:
 TriangleMesh();
-void draw();
+void Bind() const;
 ~TriangleMesh();
 
 private:
-unsigned int VBO, VAO, vertex_count;
+unsigned int VBO, VAO, EBO;
 };

@@ -9,3 +9,5 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+
+#include "stb_image.h"

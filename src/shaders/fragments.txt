@@ -1,9 +1,13 @@
 #version 330 core
 
 in vec3 fragmentColor;
+in vec2 TexPos;
 
-out vec4 screenColor;
+out vec4 FragColor;
+
+uniform sampler2D Texture0;
+uniform sampler2D Texture1;
 
 void main(){
-    screenColor = vec4(fragmentColor, 1.0);
+    FragColor =mix(texture(Texture0, TexPos), texture(Texture1, TexPos), 0.4) * vec4(fragmentColor, 1.0);
 }

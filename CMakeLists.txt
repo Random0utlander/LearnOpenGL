@@ -12,6 +12,9 @@ add_executable(my_first_simulation
     src/triangle_mesh.cpp
     src/shaders.h
     src/shaders.cpp
+    src/stb_image.h
+    src/textures.h
+    src/textures.cpp
 )
 
 include_directories(my_first_simulation PRIVATE glm)
