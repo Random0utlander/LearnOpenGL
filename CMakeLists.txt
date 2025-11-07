@@ -10,6 +10,8 @@ add_executable(my_first_simulation
     src/glad.c
     src/glad.h
     src/triangle_mesh.cpp
+    src/shaders.h
+    src/shaders.cpp
 )
 
 include_directories(my_first_simulation PRIVATE glm)
@@ -19,8 +21,8 @@ target_link_libraries(my_first_simulation
     OpenGL::GL
 )
 
-include(CTest)
-enable_testing()
+#include(CTest)
+#enable_testing()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
