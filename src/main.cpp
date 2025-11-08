@@ -3,6 +3,8 @@
 #include "triangle_mesh.h"
 #include "shaders.h"
 #include "textures.h"
+#include "resource_manager.h"
+#include "sprite_render.h"
 
 using namespace std;
 
@@ -10,9 +12,9 @@ using namespace std;
 void processInput(GLFWwindow *window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+// Screen
+const unsigned int SCREEN_WIDTH = 800;
+const unsigned int SCREEN_HEIGHT = 600;
 
 int main()
 {
@@ -25,7 +27,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -42,81 +44,48 @@ int main()
         return -1;
     }
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
-    // Create Shader Program 
-    Shader shader = Shader(
-        "../src/shaders/vertex.txt",
-        "../src/shaders/fragments.txt"
-    );
+    // OpenGL configuration
+    // --------------------
+    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    // Create Textures from image
-    int img_w, img_h, img_nChannels;
-    stbi_set_flip_vertically_on_load(true);
-    Texture2D* texture1 = new Texture2D();
-    Texture2D* texture2 = new Texture2D();
-    unsigned char* img = stbi_load("../src/img/awesomeface.png", &img_w, &img_h, &img_nChannels, 0);
-    if(img)
-    {        
-        texture1->Image_Format = GL_RGBA;
-        texture1->Internal_Format = GL_RGBA;
-        texture1->Generate(img_w, img_h, img);
-    }
-    else
-    {
-        cout << "Failed to load texture 1" << std::endl;
-    }
-    
-    stbi_image_free(img);
-    img = stbi_load("../src/img/container.jpg", &img_w, &img_h, &img_nChannels, 0);
-    if(img)
-    {        
-        texture2->Generate(img_w, img_h, img);
-    }
-    else
-    {
-        cout << "Failed to load texture 2" << std::endl;
-    }
-    
-    stbi_image_free(img);
-
-
-
-    // Create triangle
-    TriangleMesh* mesh = new TriangleMesh();
-
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
-    shader.use();
-    shader.setInt("Texture0", 0);
-    shader.setInt("Texture1", 1);
+    // deltaTime variables
+    // -------------------
+    float deltaTime = 0.0f;
+    float lastFrame = 0.0f;
 
     //-------------------------------------------------------------------------------------------
     //                  RENDER LOOP
     //-------------------------------------------------------------------------------------------
     while (!glfwWindowShouldClose(window))
     {
+        // calculate delta time
+        // --------------------
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        glfwPollEvents();
+
         // input
         // -----
         processInput(window);
 
+        // update state
+        // -----------------
+        
+
         // render
         // ------
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glActiveTexture(GL_TEXTURE0);
-        texture1->Bind();
-        glActiveTexture(GL_TEXTURE1);
-        texture2->Bind();
-        mesh->Bind();
-        shader.use();
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
-    delete mesh;
+    ResourceManager::Clear();
     glfwTerminate();
     return 0;
 }
