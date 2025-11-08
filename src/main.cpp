@@ -1,9 +1,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "config.h"
 #include "triangle_mesh.h"
+#include "resource_manager.h"
 #include "shaders.h"
 #include "textures.h"
-#include "resource_manager.h"
 #include "sprite_render.h"
 
 using namespace std;
@@ -54,6 +54,20 @@ int main()
     // -------------------
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
+
+    // Init
+    // load shaders
+    ResourceManager::LoadShader("../src/shaders/sprite.vs", "../src/shaders/sprite.fs", nullptr, "sprite");
+    // configure shaders
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT), 0.0f, -1.0f, 1.0f);
+    ResourceManager::GetShader("sprite").Use().SetInt("sprite", 0);
+    ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+
+    // load textures
+    ResourceManager::LoadTexture("../src/img/awesomeface.png", false, "face");
+    // set render-specific controls
+    SpriteRender* Render = new SpriteRender(ResourceManager::GetShader("sprite"));
+
 
     //-------------------------------------------------------------------------------------------
     //                  RENDER LOOP
