@@ -22,7 +22,7 @@ SpriteRender* Render;
 BallObject* Ball;
 // Radius and intital velocity of the ball object
 const float BALL_RADIUS = 12.5f;
-const glm::vec2 INITIAL_BALL_VELOCITY(200.0f, 0.0f);
+const glm::vec2 INITIAL_BALL_VELOCITY(200.0f, 200.0f);
 
 int main()
 {
@@ -96,7 +96,7 @@ int main()
 
         // update state
         // -----------------
-        Ball->Move(deltaTime, SCREEN_WIDTH);
+        Ball->Move(deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // render
         // ------
