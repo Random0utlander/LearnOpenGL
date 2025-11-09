@@ -1,6 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "config.h"
-#include "triangle_mesh.h"
+#include "object.h"
+#include "ball_object.h"
 #include "resource_manager.h"
 #include "shaders.h"
 #include "textures.h"
@@ -15,6 +16,13 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 // Screen
 const unsigned int SCREEN_WIDTH = 800;
 const unsigned int SCREEN_HEIGHT = 600;
+
+
+SpriteRender* Render;
+BallObject* Ball;
+// Radius and intital velocity of the ball object
+const float BALL_RADIUS = 12.5f;
+const glm::vec2 INITIAL_BALL_VELOCITY(200.0f, 0.0f);
 
 int main()
 {
@@ -64,10 +72,11 @@ int main()
     ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 
     // load textures
-    ResourceManager::LoadTexture("../src/img/awesomeface.png", false, "face");
+    ResourceManager::LoadTexture("../src/img/awesomeface.png", true, "face");
     // set render-specific controls
-    SpriteRender* Render = new SpriteRender(ResourceManager::GetShader("sprite"));
-
+    Render = new SpriteRender(ResourceManager::GetShader("sprite"));
+    glm::vec2 ballPos = glm::vec2( SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
 
     //-------------------------------------------------------------------------------------------
     //                  RENDER LOOP
@@ -87,13 +96,14 @@ int main()
 
         // update state
         // -----------------
-        
+        Ball->Move(deltaTime, SCREEN_WIDTH);
 
         // render
         // ------
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
+        Ball->Draw(*Render);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
