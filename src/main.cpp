@@ -6,8 +6,9 @@
 #include "shaders.h"
 #include "textures.h"
 #include "sprite_render.h"
+#include "ODEsolver/ODEpoint.h"
+#include "ODEsolver/ODEsolver.h"
 
-using namespace std;
 
 //prototipes
 void processInput(GLFWwindow *window);
@@ -20,9 +21,18 @@ const unsigned int SCREEN_HEIGHT = 600;
 
 SpriteRender* Render;
 BallObject* Ball;
+
+// Physics constants 
+const double g = 9.81;
+const double L = 200.0;
+
+
 // Radius and intital velocity of the ball object
 const float BALL_RADIUS = 12.5f;
-const glm::vec2 INITIAL_BALL_VELOCITY(200.0f, 200.0f);
+const glm::vec2 INITIAL_BALL_VELOCITY(0.0f, 200.0f);
+double t0 = 0.0;
+double theta0 = 0.4; // radians
+double omega0 = 0.1;
 
 int main()
 {
@@ -48,7 +58,7 @@ int main()
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        cout << "Failed to initialize GLAD" << endl;
+        std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
 
@@ -58,10 +68,6 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    // deltaTime variables
-    // -------------------
-    float deltaTime = 0.0f;
-    float lastFrame = 0.0f;
 
     // Init
     // load shaders
@@ -75,9 +81,38 @@ int main()
     ResourceManager::LoadTexture("../src/img/awesomeface.png", true, "face");
     // set render-specific controls
     Render = new SpriteRender(ResourceManager::GetShader("sprite"));
-    glm::vec2 ballPos = glm::vec2( SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-    Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
 
+    //-------------------------------------------------------------------------------------------
+    //                 PHYSICS SIMULATION INIT
+    //-------------------------------------------------------------------------------------------
+    
+    vector<function<double(ODEpoint)>> F;
+    
+    F.push_back(
+        [](ODEpoint P){
+            return P[1]; 
+        }
+    );
+    
+    F.push_back(
+        [&](ODEpoint P){
+        return -(g/L) * sin(P[0]);
+    });
+
+    ODEsolver solver(F);
+
+    // Initial conditions
+    ODEpoint lastState(t0, std::vector<double>{theta0, omega0});
+    ODEpoint currentState(lastState);
+    glm::vec2 ballPos = glm::vec2( L*sin(theta0)+ SCREEN_WIDTH/2, L*cos(theta0)+SCREEN_HEIGHT/2);
+    Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
+    
+    // deltaTime variables
+    // -------------------
+    float frameTime = 0.0f;
+    float lastFrame = 0.0f;
+    float dt = 1/60.0;
+    std::cout << "here?";
     //-------------------------------------------------------------------------------------------
     //                  RENDER LOOP
     //-------------------------------------------------------------------------------------------
@@ -86,7 +121,7 @@ int main()
         // calculate delta time
         // --------------------
         float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
+        frameTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         glfwPollEvents();
 
@@ -96,8 +131,13 @@ int main()
 
         // update state
         // -----------------
-        Ball->Move(deltaTime, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+        while(frameTime > 0.0){
+            float deltaTime = min(dt, deltaTime);
+            currentState = solver.RK2(lastState, deltaTime);
+            lastState = currentState;
+            frameTime -= deltaTime;
+        }
+        Ball->Move(currentState[0], L, SCREEN_WIDTH, SCREEN_HEIGHT);
         // render
         // ------
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

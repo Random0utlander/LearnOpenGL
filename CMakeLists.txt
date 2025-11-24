@@ -8,6 +8,8 @@ file(GLOB SRC_FILES
     src/*.cpp
     src/*.h
     src/*.c
+    src/ODEsolver/*.h
+    src/ODEsolver/*.cpp
 )
 
 add_executable(simulation ${SRC_FILES})

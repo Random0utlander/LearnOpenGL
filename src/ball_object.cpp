@@ -5,8 +5,9 @@ BallObject::BallObject(glm::vec2 pos, float radius, glm::vec2 velocity, Texture2
     : Object(pos, glm::vec2(radius*2, radius*2), sprite, glm::vec3(1.0f), velocity) { }
 // moves the ball, keeping it constrained within the window bounds (except bottom edge); returns new position
 
-glm::vec2 BallObject::Move(float dt, unsigned int window_width, unsigned int window_height){
-    this->Position += this->Velocity *dt;
+glm::vec2 BallObject::Move(float theta, float L,unsigned int window_width, unsigned int window_height){
+    //this->Position += this->Velocity *dt;
+    this->Position = glm::vec2( L*sin(theta)+ window_width/2, L*cos(theta)+window_height/2);
     // then check if outside window bounds and if so, reverse velocity and restore at correct position
     if (this->Position.x <= 0.0f)
         {
