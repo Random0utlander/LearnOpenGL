@@ -24,7 +24,8 @@ BallObject* Ball;
 
 // Physics constants 
 const double g = 9.81;
-const double L = 200.0;
+const double L_physics = 1.0;   // used in ODE
+const double L_pixels = 200.0;  // used for drawing
 
 
 // Radius and intital velocity of the ball object
@@ -32,7 +33,7 @@ const float BALL_RADIUS = 12.5f;
 const glm::vec2 INITIAL_BALL_VELOCITY(0.0f, 200.0f);
 double t0 = 0.0;
 double theta0 = 0.4; // radians
-double omega0 = 0.1;
+double omega0 = 0.2;
 
 int main()
 {
@@ -96,7 +97,7 @@ int main()
     
     F.push_back(
         [&](ODEpoint P){
-        return -(g/L) * sin(P[0]);
+        return -(g/L_physics) * sin(P[0]);
     });
 
     ODEsolver solver(F);
@@ -104,15 +105,14 @@ int main()
     // Initial conditions
     ODEpoint lastState(t0, std::vector<double>{theta0, omega0});
     ODEpoint currentState(lastState);
-    glm::vec2 ballPos = glm::vec2( L*sin(theta0)+ SCREEN_WIDTH/2, L*cos(theta0)+SCREEN_HEIGHT/2);
+    glm::vec2 ballPos = glm::vec2( L_pixels*sin(theta0)+ SCREEN_WIDTH/2, L_pixels*cos(theta0)+SCREEN_HEIGHT/2);
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
     
     // deltaTime variables
     // -------------------
     float frameTime = 0.0f;
     float lastFrame = 0.0f;
-    float dt = 1/60.0;
-    std::cout << "here?";
+    float dt = 1.0f / 60.0f;
     //-------------------------------------------------------------------------------------------
     //                  RENDER LOOP
     //-------------------------------------------------------------------------------------------
@@ -132,12 +132,12 @@ int main()
         // update state
         // -----------------
         while(frameTime > 0.0){
-            float deltaTime = min(dt, deltaTime);
+            float deltaTime = std::min(dt, frameTime);
             currentState = solver.RK2(lastState, deltaTime);
             lastState = currentState;
             frameTime -= deltaTime;
         }
-        Ball->Move(currentState[0], L, SCREEN_WIDTH, SCREEN_HEIGHT);
+        Ball->Move(currentState[0], L_pixels, SCREEN_WIDTH, SCREEN_HEIGHT);
         // render
         // ------
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
